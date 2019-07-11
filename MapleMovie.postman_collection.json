@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "1302cddf-d694-45e4-be11-6ee95a0a0be9",
+		"name": "MapleMovie",
+		"description": "Some requests to Maple Movie Recommender.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"123456\",\n    \"email\": \"424346640@bb.com\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"123\",\n    \"password\": \"123456\",\n    \"email\": \"12355555555\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/resetprefer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": 19,\n    \"juqing\": 5,\n    \"xiju\": 4,\n    \"dongzuo\": 5,\n    \"aiqing\": 5,\n    \"kehuan\": 4,\n    \"donghua\": 4,\n    \"xuanyi\": 4,\n    \"jingsong\": 5,\n    \"kongbu\": 2,\n    \"fanzui\": 2,\n    \"jilupian\": 4,\n    \"duanpian\": 4,\n    \"lishi\": 2,\n    \"qingse\": 2,\n    \"tongxing\": 4,\n    \"zhuanji\": 4,\n    \"yinyue\": 2,\n    \"jiating\": 3,\n    \"qihuan\": 3,\n    \"gewu\": 2,\n    \"zhanzheng\": 3,\n    \"maoxian\": 2,\n    \"guzhuang\": 3,\n    \"yundong\": 3,\n    \"wuxia\": 2,\n    \"zainan\": 3,\n    \"ertong\": 3,\n    \"xibu\": 2,\n    \"heisedianying\": 3\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/resetprefer",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"resetprefer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "回传的电影数据",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mid\": 26425063,\n    \"name\": \"无双\",\n    \"type\": \"剧情|动作|犯罪|\",\n    \"actors\": \"周润发|郭富城|张静初|冯文娟|廖启智|周家怡|王耀庆|方中信|高捷|邢佳栋|张松枝|张建声|吴嘉龙|孙佳君|\",\n    \"countries\": \"中国大陆|香港|\",\n    \"directors\":\"庄文强|\",\n    \"rating\":8,\n    \"summary\":\"身陷囹圄的李问（郭富城饰）被引渡回港，他原本隶属于一个的跨国假钞制贩组织。该组织曾犯下过多宗恶性案件，而首脑“画家”不仅始终逍遥法外，连真面目都没人知道。为了逼迫李问吐露“画家”真实身份，警方不惜用足以判死刑的假罪证使其就范。就在此时，富有的遗孀阮文（张静初饰）申请保释李问，而警方提出的条件依然是“画家”的真面目。原来早在十数年前，李问和阮文是一对画家情侣，无奈女友的作品受人青睐，李问的画作却被贬得一文不值。就在此困顿期间，他制作假画的才能被“画家”（周润发饰）发掘，进而成为对方美元假币团伙中的一员……\",\n    \"img\":\"https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2535260806.webp\"\n}"
+				},
+				"url": {
+					"raw": "回传的电影数据（一条例子）",
+					"host": [
+						"回传的电影数据（一条例子）"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/getmovieinfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\":19\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/getmovieinfo",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"getmovieinfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/getprefer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": 45\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/getprefer",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"getprefer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/getuserinfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": 45\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/getuserinfo",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"getuserinfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8090/getsinglemovieinfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mid\": 1309042\n}"
+				},
+				"url": {
+					"raw": "localhost:8090/getsinglemovieinfo",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"getsinglemovieinfo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
