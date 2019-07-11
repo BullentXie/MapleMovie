@@ -1,0 +1,111 @@
+.mov-type {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.chart {
+    margin-top: 40px;
+    width: 100%;
+    height: 600px;
+}
+
+.chart-data {
+    /* width: 10px; */
+    margin-top: 20px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.chart-data input {
+    margin-bottom: 15px;
+    margin-left: 0px;
+}
+
+/* 滑动条样式 */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 150px;
+    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 15px;
+    border-radius: 10px; /*将轨道设为圆角的*/
+    /* box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; 轨道内置阴影效果 */
+    background-color: #ffafc3;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    /* box-shadow: 0 .125em .125em #3b4547; 添加底部阴影 */
+    background-color: white;
+}
+
+/* /滑动条样式 */
+
+
+
+.mov-area {
+    background-color: #eee;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.mov-char {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+
+
+.chart-data-char {
+    /* width: 10px; */
+    margin-top: 190px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.chart-data-char input {
+    margin-bottom: 15px;
+    margin-left: 0px;
+}
+
+
+
+
+/* 确认btn */
+.confirmType-Big {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.confirmType {
+    margin: 0 auto !important;
+    background-color: pink;
+    padding: 5px 13px;
+    border-radius: 5px;
+    /* border: 1px solid #222; */
+    box-shadow: 1px 1px 1px #222;
+}
+.confirmType:hover {
+    background-color: #ffafc3 !important;
+    cursor: pointer !important;
+    color: #222 !important;
+}

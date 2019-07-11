@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./lib/bootstrap-4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./src/css/movNameie-details.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="./component/navbar/navbarLight.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="./lib/font-awesome-4.7.0/css/font-awesome.min.css"/>
+
+    <script type="text/javascript" src="./lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <title>电影详情</title>
+</head>
+<body>
+    <div id="navbar-light"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                <div></div>
+            </div>
+            <div class="col-3">
+                <div id="mov-dti-name" class="mov-name"></div>
+                <div class="mov-pic"><img id="mov-dti-pic" /></div>
+                <div id="mov-dti-actors" class="mov-actor"></div>
+            </div>
+            <div class="col-1">
+                <div></div>
+            </div>
+            <div class="col-6">
+                <div id="mov-dti-summary" class="mov-intro"></div>
+            </div>
+            <div class="col-1">
+                <div></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- 库文件 -->
+<!-- react -->
+<script src="./lib/react/react.development.js"></script>
+<script src="./lib/react/react-dom.development.js"></script>
+<script src="./lib/babel/babel.js"></script>
+<!-- bootstrap -->
+<script src="./lib/bootstrap-4.0.0/umd/popper.min.js"></script>
+<script src="./lib/bootstrap-4.0.0//js/bootstrap.min.js"></script>
+<!-- 库文件 / -->
+
+<!-- 自定义组件 -->
+<script type="text/babel" src="./component/navbar/navbarLight.js"></script>
+<!-- 自定义组件 / -->
+
+<!-- 界面效果控制 -->
+<script src="./src/js/movie-details.js"></script>
+<!-- 界面效果控制 / -->
+</html>
