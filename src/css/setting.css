@@ -1,0 +1,153 @@
+.hidden{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+/*个人设置*/
+.setting{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    min-height: 600px;
+}
+
+.setting .col-3 .list-group .list-group-item{
+    padding: 10px 10px 10px 10px;
+}
+
+.setting .col-3 .list-group .list-group-item i{
+    opacity: 0.7;
+}
+
+.setting .col-3 .list-group .list-group-item p{
+    display: inline;
+    padding-left: 10px; 
+    font-size: 15px;
+}
+
+.active{
+    background-color: #ffafc3 !important;
+    border: none !important;
+    transition: all 125ms !important;
+}
+
+.card{
+    min-width: 100%;
+}
+
+.card h5{
+    padding: 10px 0 2px 10px;
+    opacity: 0.6;
+    margin: 0;
+}
+
+.card form{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.form-group{
+    position: relative;
+}
+
+.form-group label{
+    padding-left: 4px;
+    opacity: 0.7;
+}
+
+.little-close{
+    position: absolute;
+    right: 10px;
+    top: 44px;
+    opacity: 0.5;
+    cursor: pointer;
+    display: none;
+}
+
+.little-trash{
+    margin-left: 10px;
+    opacity: 0.8;
+    color: #999;
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+.little-trash:hover{
+    color: #F44336;
+}
+
+.form-group textarea{
+    border-radius: 5px;
+    min-height: 120px;
+    border-color: rgba(0, 0, 0,0.18);
+    overflow: auto;
+    resize: none;
+}
+
+.word-num{
+    font-size: 12px;
+    color: #999;
+    position: absolute;
+    bottom: -20px;
+    right: 8px;
+}
+
+.form-group a{
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 5px;
+    color: #607D8B;
+    opacity: 0.7;
+    transition: all 200ms;
+    text-decoration: none;
+}
+
+.form-group a:hover{
+    color: #E91E63;
+}
+
+/*取消输入框或按钮选中时边缘变蓝*/
+.noBlue:focus{
+    box-shadow: none;
+    outline: none;
+    border-color: rgba(93, 95, 142, 0.5);
+}
+
+.button-group{
+    text-align: center;
+}
+
+.card form .button-group .btn-primary{
+    background-color: #96b1dc;
+    border: none;
+    outline: none;
+    margin: 20px auto 40px auto;
+}
+
+.button-aligin{
+    display:inline-flex;
+    margin-left:20px !important;
+    margin-right:20px !important;
+}
+
+.card form .btn-primary:hover{
+    background:#ffafc3;
+}
+
+.card form .btn-primary:active {
+    background:#ffafc3 !important;
+    box-shadow: none !important;
+}
+
+
+
+
+.logo{
+    width:90px;
+    height:50px;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+

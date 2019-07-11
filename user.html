@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./lib/bootstrap-4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./component/navbar/navbarLight.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="./component/page-footer/page-footer.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="./src/css/user.css"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="./lib/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="./lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <title>枫影</title>
+</head>
+<body>
+    <div id="navbar-light"></div>
+
+
+
+
+
+
+
+
+    <!-- <div style="margin: 0 auto">
+        <script type="text/javascript">
+            //配置
+            var height = 800; //canvas的高度
+            var width = 800; //canvas的宽度
+            var edgeLength = 300; //六边形的边长
+            var pointRadius = 5; //小圆的半径
+            document.write('<canvas id="myCanvas" width="' + width + '" height="' + height + '" style="display: block;margin: 0 auto ;border:1px solid white;">');
+        </script>
+        <canvas style="margin: auto">
+            Your browser does not support the canvas element.
+        </canvas>
+    </div>
+    <div style="margin: 0 auto;display: block;">
+        {% csrf_token %}
+        <text>当前六维坐标的数值为（从最上面一个点开始按顺时针方向排序）：</text>
+        <input type="text" value="" id="val" style="margin: 0 auto;" disabled="disabled"/>
+    </div>
+    <script type="text/javascript">
+        //传入canvas的宽度和高度还有六边形的边长，就可以确定一个六边形的六个点的坐标了
+        function getHexagonPoints(width, height, edgeLength) {
+            var paramX = edgeLength * Math.sqrt(3) / 2;
+            var marginLeft = (width - 2 * paramX) / 2;
+            var x5 = x6 = marginLeft;
+            var x2 = x3 = marginLeft + paramX * 2;
+            var x1 = x4 = marginLeft + paramX;
+    
+            var paramY = edgeLength / 2;
+            var marginTop = (height - 4 * paramY) / 2;
+            var y1 = marginTop;
+            var y2 = y6 = marginTop + paramY;
+            var y3 = y5 = marginTop + 3 * paramY;
+            var y4 = marginTop + 4 * paramY;
+    
+            var points = new Array();
+            points[0] = [x1, y1];
+            points[1] = [x2, y2];
+            points[2] = [x3, y3];
+            points[3] = [x4, y4];
+            points[4] = [x5, y5];
+            points[5] = [x6, y6];
+            return points;
+        }
+    
+        //画六个六边形
+        function drawHexagon(sixParam) {
+            for (var i = 0; i < 6; i++) {
+                allPoints[i] = getHexagonPoints(width, height, sixParam - i * sixParam / 5);
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(0,184,255,0.1)";
+                ctx.moveTo(allPoints[i][5][0], allPoints[i][5][1]); //5
+                for (var j = 0; j < 6; j++) {
+                    ctx.lineTo(allPoints[i][j][0], allPoints[i][j][1]); //1
+                }
+                ctx.stroke();
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+    
+        //画交叉的线
+        function drawLines() {
+            ctx.beginPath();
+            for (var i = 0; i < 3; i++) {
+                ctx.moveTo(allPoints[0][i][0], allPoints[0][i][1]); //1-4
+                ctx.lineTo(allPoints[0][i + 3][0], allPoints[0][i + 3][1]); //1-4
+                ctx.stroke();
+            }
+            ctx.closePath();
+        }
+    
+        //画覆盖物
+        function drawCover() {
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(104,153,211,0.8)";
+            ctx.moveTo(coverPoints[5][0], coverPoints[5][1]); //5
+            for (var j = 0; j < 6; j++) {
+                ctx.lineTo(coverPoints[j][0], coverPoints[j][1]);
+            }
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fill();
+        }
+    
+        //描点
+        function drawPoints(pointRadius) {
+            ctx.fillStyle = "#4284d3";
+            for (var i = 0; i < 5; i++) {
+                for (var k = 0; k < 6; k++) {
+                    ctx.beginPath();
+                    ctx.arc(allPoints[i][k][0], allPoints[i][k][1], pointRadius, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            }
+        }
+    
+        //判断用户点击的位置是否在小圆的范围内
+        function judgeRange() {
+            for (var i = 0; i < 5; i++) {
+                for (var k = 0; k < 6; k++) {
+                    var distance = Math.sqrt((mx - allPoints[i][k][0]) * (mx - allPoints[i][k][0]) + (my - allPoints[i][k][1]) * (my - allPoints[i][k][1]));
+                    if (distance <= pointRadius) {
+                        clickPoints[k] = 5 - i;
+                        //将变化的值显示出来
+                        $('#val').val(clickPoints);
+                        console.log('当前选择的数值为：', clickPoints);
+                        //返回服务器数据
+                        var csrf = $("input[name='csrfmiddlewaretoken']").val();
+                        var formData = new FormData();
+                        formData.append("csrfmiddlewaretoken", csrf);
+                        formData.append('data', clickPoints);  /*获取上传的图片对象*/
+                        $.ajax({
+                            url: 'localhost:8090/user',
+                            type: 'POST',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function (args) {
+                                console.log(args);
+                            }
+                        })
+                        //清空
+                        ctx.clearRect(0, 0, width, height);
+                        //重绘
+                        drawHexagon(edgeLength);
+                        drawLines();
+                        //给覆盖物确定变化
+                        coverPoints[k] = allPoints[i][k];
+                        drawCover();
+                        drawPoints(pointRadius);
+                        return;
+                    }
+                }
+            }
+        }
+    
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.strokeStyle = "#6997D3"
+        var allPoints = [];
+        var clickPoints = [2, 2, 2, 2, 2, 2];
+        var mx, my;
+        drawHexagon(edgeLength);
+        drawLines();
+        //初始化覆盖物
+        var coverPoints = allPoints[3];
+        drawCover();
+        drawPoints(pointRadius);
+        $(function () {
+            //显示用户选择的权重
+            $('#val').val(clickPoints);
+        });
+    
+        this.mousedown = function (e) {
+            //判断浏览器的类型，IE和firefox的offset和layer属性需要减去当前标签到浏览器左上角的距离的。
+            if (isFirefox = navigator.userAgent.indexOf("Firefox") > 0 || navigator.userAgent.indexOf("MSIE") > 0) {
+                if (e.layerX || e.layerX == 0) {
+                    mx = e.layerX - c.offsetLeft;
+                    my = e.layerY - c.offsetTop;
+                } else if (e.offsetX || e.offsetX == 0) {
+                    mx = e.offsetX - c.offsetLeft;
+                    my = e.offsetY - c.offsetTop;
+                }
+            } else {
+                if (e.layerX || e.layerX == 0) {
+                    mx = e.layerX;
+                    my = e.layerY;
+                } else if (e.offsetX || e.offsetX == 0) {
+                    mx = e.offsetX;
+                    my = e.offsetY;
+                }
+            }
+            judgeRange();
+        };
+        c.addEventListener('mousedown', this.mousedown, false); //添加鼠标点击监听事件
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 电影类型 -->
+    <div class="mov-type">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div id="chart-type" class="chart"></div>
+                </div>
+                <div class="col-6">
+                    <div id="chart-data" class="chart-data">
+                        <div class="range-text">
+                            <div class="range-text-title">剧情</div>
+                            <input id="juqing" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">喜剧</div>
+                            <input id="xiju" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">动作</div>
+                            <input id="dongzuo" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">爱情</div>
+                            <input id="aiqing" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">科幻</div>
+                            <input id="kehuan" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">动画</div>
+                            <input id="donghua" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">悬疑</div>
+                            <input id="xuanyi" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">惊悚</div>
+                            <input id="jingsong" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">恐怖</div>
+                            <input id="kongbu" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">犯罪</div>
+                            <input id="fanzui" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">纪录片</div>
+                            <input id="jilupian" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">短片</div>
+                            <input id="duanpian" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">历史</div>
+                            <input id="lishi" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">情色</div>
+                            <input id="qingse" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">同性</div>
+                            <input id="tongxing" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">传记</div>
+                            <input id="zhuanji" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">音乐</div>
+                            <input id="yinyue" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">家庭</div>
+                            <input id="jiating" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">奇幻</div>
+                            <input id="qihuan" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">歌舞</div>
+                            <input id="gewu" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">战争</div>
+                            <input id="zhanzheng" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">冒险</div>
+                            <input id="maoxian" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">古装</div>
+                            <input id="guzhuang" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">运动</div>
+                            <input id="yundong" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">武侠</div>
+                            <input id="wuxia" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">灾难</div>
+                            <input id="zainan" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">儿童</div>
+                            <input id="ertong" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">西部</div>
+                            <input id="xibu" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">黑色电影</div>
+                            <input id="heisedianying" type="range" min="0" max="100" value="0" oninput="changeTypeValue()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="confirmType-Big">
+                <div id="confirmTypeBtn" class="confirmType">确认提交！</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 电影地区 -->
+    <!-- <div class="mov-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div id="chart-data" class="chart-data">
+                        <div class="range-text">
+                            <div class="range-text-title">中国大陆</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">美国</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">香港</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">台湾</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">日本</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">韩国</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">英国</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">法国</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">德国</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">意大利</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">西班牙</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">印度</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">泰国</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">俄罗斯</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">伊朗</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">加拿大</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">澳大利亚</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">爱尔兰</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">瑞典</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">巴西</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">丹麦</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div id="chart-area" class="chart"></div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 电影特色 -->
+    <!-- <div class="mov-char">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <div id="chart-char" class="chart"></div>
+                </div>
+                <div class="col-4">
+                    <div id="chart-data" class="chart-data-char">
+                        <div class="range-text">
+                            <div class="range-text-title">经典</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">青春</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">文艺</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">搞笑</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">励志</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">魔幻</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">感人</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">女性</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                        <div class="range-text">
+                            <div class="range-text-title">黑帮</div>
+                            <input type="range" min="0" max="100" value="0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
+    <div id="page-footer"></div>
+</body>
+<!-- 库文件 -->
+<!-- react -->
+<script src="./lib/react/react.development.js"></script>
+<script src="./lib/react/react-dom.development.js"></script>
+<script src="./lib/babel/babel.js"></script>
+<!-- bootstrap -->
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<!-- echart -->
+<script src="./lib/incubator-echarts-4.2.1/dist/echarts.min.js"></script>
+<!-- 库文件 / -->
+
+<!-- 自定义组件 -->
+<script type="text/babel" src="./component/navbar/navbarLight.js"></script>
+<script type="text/babel" src="./component/page-footer/page-footer.js"></script>
+<!-- 自定义组件 / -->
+
+<!-- 界面效果控制 -->
+<script src="./src/js/echarts-themes-walden.js"></script>
+<script src="./src/js/user.js"></script>
+<script src="./src/js/RangeSlider.js"></script>
+<!-- 界面效果控制 / -->
+</html>
