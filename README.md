@@ -1,4 +1,4 @@
-# Mapleee
+# MapleMovie
 ### 软酷实训_好康的
 <p>该分支是枫影推荐项目的前端代码，由web完成。</p>
 <p>目前采用了React框架，可直接调用json数组。</p>
