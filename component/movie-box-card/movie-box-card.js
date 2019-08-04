@@ -142,9 +142,9 @@ function getMovies(callback){
             data = data.res;
             callback(data);
         },
-        error : function(data) {       
+        error : function(data) {
         },
-        dataType : 'json',   
+        dataType : 'json',
     });
 }
 getMovies(function(data){
