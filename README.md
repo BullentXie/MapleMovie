@@ -7,7 +7,7 @@
 ![Image text](https://github.com/BullentXie/MapleMovie/blob/master/img-folder/pic-1.png)
 ![Image text](https://github.com/BullentXie/MapleMovie/blob/master/img-folder/pic-2.png)
 
-更多详细的针对于本项目的后端、爬虫和机器学习方面的介绍，请访问 ("https://github.com/WenjieOoo/Mapleee") 以获得更多的咨询
+更多详细的针对于本项目的后端、爬虫和机器学习方面的介绍，请访问 ("https://github.com/WenjieOoo/Mapleee") 以获得更多的咨询。
 
 然后说说前端，本项目的前端使用了React框架，将导航栏Navbar、电影推荐卡片Movie-box-card和页脚Page-footer做成了3个react组件，其中Movie-box-card组件实现了2层组件间的传值和循环调用，可以直接调用json数组完成组件的渲染。
 
